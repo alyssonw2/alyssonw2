@@ -1,4 +1,5 @@
 let dispositivoSelecionado;
+let characteristicSelecionada;
 
 async function listarDispositivos() {
   try {
@@ -22,13 +23,13 @@ async function connectToDevice(dispositivo) {
   try {
     const server = await dispositivo.gatt.connect();
     dispositivoSelecionado = dispositivo;
-    mostrarInfoDispositivo();
+    mostrarInfoDispositivo(server);
   } catch (erro) {
     console.error('Erro ao conectar com dispositivo Bluetooth:', erro);
   }
 }
 
-function mostrarInfoDispositivo() {
+function mostrarInfoDispositivo(server) {
   document.getElementById('info-dispositivo').style.display = 'block';
   document.getElementById('nome-dispositivo').textContent = dispositivoSelecionado.name;
   document.getElementById('id-dispositivo').textContent = dispositivoSelecionado.id;
@@ -53,11 +54,20 @@ async function getServiceCharacteristics(service) {
     const characteristics = await service.getCharacteristics();
     characteristics.forEach(characteristic => {
       uuids.push(characteristic.uuid);
+      // adicione um evento para receber notificações de mudanças de valor nesta característica
+      characteristic.addEventListener('characteristicvaluechanged', handleCharacteristicValueChanged);
+      characteristic.startNotifications();
     });
   } catch (error) {
     console.error('Erro ao obter características do serviço:', error);
   }
   return uuids.join(', ');
+}
+
+function handleCharacteristicValueChanged(event) {
+  const value = event.target.value;
+  // faça algo com o valor recebido
+  alert('Valor recebido:', value);
 }
 
 
