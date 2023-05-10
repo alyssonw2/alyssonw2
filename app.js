@@ -60,4 +60,4 @@ async function getServiceCharacteristics(service) {
   return uuids.join(', ');
 }
 
-listarDispositivos();
+
