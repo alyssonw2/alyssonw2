@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lista de dispositivos Bluetooth</title>
+  <link r
+  el="manifest" href="./manifest.json">
+  <style>
+    #dispositivos {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #dispositivos li {
+      padding: 10px;
+      margin: 5px 0;
+      background-color: #eee;
+      cursor: pointer;
+    }
+
+    #dispositivos li:hover {
+      background-color: #ccc;
+    }
+
+    #info-dispositivo {
+      margin-top: 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lista de dispositivos Bluetooth</h1>
+  <ul id="dispositivos"></ul>
+  <div id="info-dispositivo"></div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
